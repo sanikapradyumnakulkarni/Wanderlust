@@ -6,11 +6,7 @@ Features:-
 
 2)Property Listings: Users can browse, add, edit, and delete property listings.
 
-3)Booking System: Seamless booking experience for users to reserve accommodations.
-
-4)Map Integration: Real-time property location views using Mapbox API.
-
-5)Responsive Design: Optimized for various devices with a user-friendly interface.
+3)Responsive Design: Optimized for various devices with a user-friendly interface.
 
 Technologies Used
 
