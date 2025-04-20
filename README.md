@@ -2,7 +2,7 @@ Wanderlust is a comprehensive full-stack web application designed to facilitate 
 
 Features:-
 
-1)User Authentication: Secure login and registration using Passport.js with Google and GitHub OAuth integration.
+1)User Authentication: Secure login and registration using Passport.js.
 
 2)Property Listings: Users can browse, add, edit, and delete property listings.
 
