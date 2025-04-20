@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WanderLust</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="/css/rating.css">
+  </head>
+<body>
+    <%- include('../includes/navbar.ejs') %>
+    <div class="container">
+        <%- include('../includes/flash.ejs') %>
+        <%- body %>
+    </div>
+    <%- include('../includes/footer.ejs') %>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    <script src="/js/script.js"></script>
+    <!-- Chatbot Floating Button -->
+<!-- Chatbot Floating Button -->
+<button onclick="toggleChatbot()" class="btn btn-light rounded-circle shadow" 
+  style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; background-color: #ff5a5f; color: white; width: 50px; height: 50px; font-size: 20px; border: none;">
+  💬
+</button>
+
+<!-- Chatbot Container -->
+<div id="chatbotContainer" style="display: none; position: fixed; bottom: 85px; right: 20px; width: 320px; height: 400px; background: #ffffff; border-radius: 12px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); z-index: 9999; overflow: hidden; font-family: 'Segoe UI', sans-serif;">
+  <div style="background-color: #ff5a5f; color: white; padding: 12px; font-weight: bold; text-align: center;">
+    WanderBot ✈️
+  </div>
+  <div id="chatMessages" style="height: 280px; overflow-y: auto; padding: 10px; background-color: #f7f7f7;"></div>
+  <div class="input-group p-2" style="background-color: #fff;">
+    <input type="text" id="chatInput" class="form-control" placeholder="Ask me something..." onkeydown="if(event.key==='Enter'){sendMessage()}">
+    <button class="btn btn-outline-secondary" onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+  const faqAnswers = {
+    "hello": "Hi there 👋 Welcome to WanderLust! Looking for a dream stay?",
+    "hi": "Hey! 👋 How can I assist you with your travel plans today?",
+    "what is wanderlust": "WanderLust is your portal to explore and book picturesque vacation rentals around the world.",
+    "how do i book": "Simply click on any listing card you like, and you'll find booking options on its detail page.",
+    "is payment secure": "Yes! All transactions on WanderLust are encrypted and secure.",
+    "what is the price": "Each listing has the nightly rate clearly displayed. Let me know which one you're looking at!",
+    "where is modern loft in downtown": "It's located in New York City, United States 🇺🇸.",
+    "where is mountain retreat": "The Mountain Retreat is nestled in the scenic hills. Perfect for nature lovers!",
+    "can i cancel": "Most stays offer free cancellation up to 48 hours before your check-in date. Check the listing details to be sure.",
+    "can i list property": "Yes! Click 'Add new Listing' on the top right and follow the simple steps.",
+    "do i need account to book": "Yes, creating an account helps us ensure secure and personalized booking.",
+    "what currencies accepted": "Currently we support INR. Multi-currency support is coming soon!",
+    "can i talk to host": "Yes! After booking, you’ll be able to chat directly with your host.",
+    "any customer support": "Absolutely! Our customer support is available 24/7 via the Help Center.",
+    "are pets allowed": "It depends on the listing. Check the individual listing page for pet policies.",
+    "how many guests allowed": "Each listing specifies guest capacity. Let me know which stay you're interested in!",
+    "what reviews like": "Scroll down the detail page to view reviews from previous guests. Real feedback helps you decide!"
+  };
+
+  function toggleChatbot() {
+    const chatbot = document.getElementById("chatbotContainer");
+    chatbot.style.display = chatbot.style.display === "none" ? "block" : "none";
+  }
+
+  function sendMessage() {
+    const input = document.getElementById("chatInput");
+    const message = input.value.trim();
+    if (!message) return;
+
+    const chatBox = document.getElementById("chatMessages");
+
+    const userMsg = document.createElement("div");
+    userMsg.className = "text-end mb-2";
+    userMsg.innerHTML = `<div style="background:#d1ecf1; color:#0c5460; padding: 8px 12px; border-radius: 12px; display:inline-block; max-width: 80%;">${message}</div>`;
+    chatBox.appendChild(userMsg);
+
+    const lowerMsg = message.toLowerCase();
+    let response = "🤔 Hmm, I’m not sure how to answer that. Try rephrasing or ask about a listing or booking.";
+
+    for (const key in faqAnswers) {
+      if (lowerMsg.includes(key)) {
+        response = faqAnswers[key];
+        break;
+      }
+    }
+
+    const botMsg = document.createElement("div");
+    botMsg.className = "text-start mb-2";
+    setTimeout(() => {
+      botMsg.innerHTML = `<div style="background:#fff3cd; color:#856404; padding: 8px 12px; border-radius: 12px; display:inline-block; max-width: 80%;">${response}</div>`;
+      chatBox.appendChild(botMsg);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }, 600);
+
+    input.value = "";
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+</script>
+  
+</body>
+</html>
